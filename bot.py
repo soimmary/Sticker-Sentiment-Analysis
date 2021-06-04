@@ -24,7 +24,7 @@ import conf
 и возможность перейти к следующему стикеру/гифу или завершить опрос
 
 
-* на команды /start и /help пользователю присылается описание бота
+✅ на команды /start и /help пользователю присылается описание бота
 * реализованы две клавиатуры в ответ на вопросы про характер и про интенсивность эмоции
 * результаты опроса записываются в results.csv
 * на основании данных из results.csv пользователю присылается фидбек: как его ответы соотносятся с ответами остальных 
@@ -43,6 +43,7 @@ def send_welcome(message):
                      "Hi there! This bot helps linguists to carry out a "
                      "sticker sentiment analysis :) You are only required "
                      "to answer simple questions!")
+
 
   
     
