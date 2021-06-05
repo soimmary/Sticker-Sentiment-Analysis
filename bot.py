@@ -138,7 +138,5 @@ def if_continue(message, user_data):
         bot.send_message(message.chat.id, 'Спасибо! До скорого ☺️')
 
 
-user_data
-
 if __name__ == '__main__':
     bot.polling(none_stop=True)
