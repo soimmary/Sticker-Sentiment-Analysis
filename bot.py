@@ -134,21 +134,21 @@ def city(message):
 
 def if_continue(message):
     # Сохраняем полученную информацию в csv
-    with open('results.csv', 'a') as csvf:
-        writer = csv.writer(csvf, delimiter=' ')
+    with open('results.csv', 'a') as csvf1:
+        writer = csv.writer(csvf1, delimiter=' ')
         writer.writerow(user_data.values())
     # Показываем статистику
     respondents = set()
     cities = {}
-    with open('results.csv', 'r') as csvf:
-        headers = csvf.readline()
-        for answer in csv.reader(csvf):
+    with open('results.csv', 'r') as csvf2:
+        headers = csvf2.readline()
+        for answer in csv.reader(csvf2):
             respondents.add(answer[1])
             if answer[8] not in cities:
                 cities[answer[8].lower()] == 1
             else:
                 cities[answer[8].lower()] += 1
-    
+
     bot.send_message(message.chat.id, f'Вы – {len(respondents)}-й респондент! Круто!')
     bot.send_message(message.chat.id, f'А еще вы {cities[user_data["city"]]}-й респондент из города {user_data["city"]}!')
     # Спрашиваем, хочет ли информант продолжить
