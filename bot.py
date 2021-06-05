@@ -66,22 +66,15 @@ def send_welcome(message):
                      "с использованием стикеров в Телеграме! Предлагаем вам ответить "
                      "на несколько простых вопросов :) Начнем?", reply_markup=keyboard)
 
-
-# функция запустится, когда пользователь нажмет на кнопку
-@bot.callback_query_handler(func=lambda call: True)
-def callback_inline(call):
-    if call.message:
-        if call.data == "button_yes":
-            bot.register_next_step_handler(call.message.chat.id, send_sticker)
-        if call.data == "button_no":
-            bot.send_message(call.message.chat.id, "Хорошо. Тогда, до сокрого!")
-
-
+    
 # отправляем стикер
-@bot.message_handler(func=lambda m: True)
+@bot.message_handler(content_types=['text'])
 def send_sticker(message):
-    for sticker in sticker_ids:
-        bot.send_sticker(message.chat.id, sticker)
+    if message.chat.id == 'Да':
+        for sticker in sticker_ids:
+            bot.send_sticker(message.chat.id, sticker)
+    else:
+        bot.send_message(call.message.chat.id, "Хорошо. Тогда, до сокрого!")
 
 
 if __name__ == '__main__':
