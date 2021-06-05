@@ -87,6 +87,7 @@ def send_q1(message):
 
 def answer_q1(message):
     q1 = message.text
+    bot.send_message(q1)
     
 
 
