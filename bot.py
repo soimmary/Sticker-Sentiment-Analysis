@@ -79,13 +79,14 @@ def send_sticker(message):
     bot.send_message(message.chat.id,
                      'Если бы ваш друг прислал вам сообщение вместо этого стикера, '
                      'каким бы оно могло быть?')
+    answer_q1(message)
 
 
 @bot.message_handler(func=lambda m: True)
 def answer_q1(message):
     q1 = message.text
     user_data['q1'] = q1
-    bot.send_message(message.chat.id, 
+    bot.send_message(message.chat.id,
                      'В ответ на какое сообщение вы бы могли отправить этот стикер?')
 
 
