@@ -1,7 +1,8 @@
-import telebot
 from telebot import types
+import telebot
 import random
 import conf
+
 
 """
 Бот посылает пользователю стикеры/гифы по одному (выберите 5-10 ваших любимых) 
@@ -22,7 +23,7 @@ import conf
 
 
 ✅ на команды /start и /help пользователю присылается описание бота
-* реализованы две клавиатуры в ответ на вопросы про характер и про интенсивность эмоции
+✅ реализованы две клавиатуры в ответ на вопросы про характер и про интенсивность эмоции
 * результаты опроса записываются в results.csv
 * на основании данных из results.csv пользователю присылается фидбек: 
   как его ответы соотносятся с ответами остальных 
@@ -134,8 +135,9 @@ def if_continue(message):
         send_sticker(message)
     else:
         bot.send_message(message.chat.id, 'Спасибо! До скорого ☺️')
+        bot.send_message(message.chat.id, user_data.value())
 
-
+user_data
 
 if __name__ == '__main__':
     bot.polling(none_stop=True)
