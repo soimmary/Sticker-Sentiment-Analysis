@@ -4,11 +4,6 @@ import random
 import conf
 
 """
-- send sticker
-- answer questions
-- wanna another one? y/n
-
-
 Бот посылает пользователю стикеры/гифы по одному (выберите 5-10 ваших любимых) 
 и просит ответить на вопросы 
     1. "Если бы ваш друг прислал бы вам сообщение вместо стикера/гифа, каким бы оно могло быть?", 
@@ -41,7 +36,12 @@ sticker_ids = [
     'CAACAgIAAxkBAAECYkVgu2P0_2aKGjsqru0qgP2fEJ9mZQACGAADenb4EXFNJy-jEA1jHwQ',
     'CAACAgIAAxkBAAECYkdgu2QF_NrKsn6PUq7kQAqgbg5Q7gACLQUAAiMFDQABtwnyEwyU6_wfBA',
     'CAACAgUAAxkBAAECYktgu2Qa6PnKc5-JusUR3_ilo0eHNQACxQYAAszG4gK3wUYfyR3TSR8E',
-    'CAACAgIAAxkBAAECYk9gu2RIvNxErcaHrXLrav9euuuA_QACpwADfyesDlW4WzNWUWRgHwQ'
+    'CAACAgIAAxkBAAECYk9gu2RIvNxErcaHrXLrav9euuuA_QACpwADfyesDlW4WzNWUWRgHwQ',
+    'CAACAgIAAxkBAAECYs1gu5HgGAJgByQ1PoDRao9OSrSKEQACrgADfyesDmEN9hyD4C20HwQ',
+    'CAACAgIAAxkBAAECYtBgu5Hus3ZAT25zOKGp7Kx81uK3GQACpgADfyesDpUUIUQjXhW_HwQ',
+    'CAACAgQAAxkBAAECYtJgu5H7uShSBk6LBk81GETORp9MxAACIwADX8YBGblN6Er12GDkHwQ',
+    'CAACAgIAAxkBAAECYtRgu5ILZJUVxTKG_gad38qSpZy8AQACegUAAiMFDQABbpLHbsuBRvUfBA',
+    'CAACAgIAAxkBAAECYtZgu5Ic9l8y6Zq1SIqlj1Fd67guwgACMgUAAiMFDQABe6yTTsfJ4MYfBA'
 ]
 
 # Создаем словарь
@@ -79,7 +79,7 @@ def q1(message):
 def q2(message):
     user_data['q2'] = message.text
     keyboard = types.ReplyKeyboardMarkup(True, True)
-    keyboard.row('😄', '🥰', '🤨', '🥺', '😡', '😎', '😢', 'другое')
+    keyboard.row('/😄', '/🥰', '/🤨', '/🥺', '/😡', '/😎', '/😢', 'другое')
     bot.send_message(message.chat.id,
                      '3. С какой эмоцией у вас ассоциируется этот стикер?',
                      reply_markup=keyboard)
