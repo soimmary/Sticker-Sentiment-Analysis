@@ -46,9 +46,6 @@ sticker_ids = [
     'CAACAgIAAxkBAAECYtZgu5Ic9l8y6Zq1SIqlj1Fd67guwgACMgUAAiMFDQABe6yTTsfJ4MYfBA'
 ]
 
-# Создаем словарь
-user_data = {}
-
 
 @bot.message_handler(commands=['start', 'help'])
 def send_welcome(message):
@@ -63,6 +60,7 @@ def send_welcome(message):
 # отправляем стикер
 @bot.message_handler(commands=['sticker'])
 def send_sticker(message, user_data):
+    user_data = {}
     user_data['user_id'] = message.chat.id
     sticker = random.choice(sticker_ids)
     bot.send_sticker(message.chat.id, sticker)
