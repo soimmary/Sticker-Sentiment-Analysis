@@ -131,10 +131,10 @@ def if_continue(message):
     answer = message.text.strip()
     if answer == 'Да':
         bot.send_message(message.chat.id, 'Круто!')
-        bot.register_next_step_handler(message, send_sticker)
+        send_sticker(message)
     else:
         bot.send_message(message.chat.id, 'Спасибо! До скорого ☺️')
-    
+
 
 
 if __name__ == '__main__':
