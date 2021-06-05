@@ -60,7 +60,8 @@ def send_welcome(message):
                      "to answer simple questions!")
 
 
-  
+# bot.send_sticker(chat_id=update.message.chat_id, sticker='CAADAgADOQADfyesDlKEqOOd72VKAg')
+
     
 if __name__ == '__main__':
     bot.polling(none_stop=True)
