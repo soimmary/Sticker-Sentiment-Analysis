@@ -56,10 +56,10 @@ def send_welcome(message):
     keyboard = types.InlineKeyboardMarkup()
 
     # добавляем на нее две кнопки
-    button1 = types.InlineKeyboardButton(text="Да", callback_data="button_yes")
-    button2 = types.InlineKeyboardButton(text="Нет", callback_data="button_no")
-    keyboard.add(button1)
-    keyboard.add(button2)
+    button_yes = types.InlineKeyboardButton(text="Да", callback_data="button_yes")
+    button_no = types.InlineKeyboardButton(text="Нет", callback_data="button_no")
+    keyboard.add(button_yes)
+    keyboard.add(button_no)
 
     bot.send_message(message.chat.id,
                      "Привет! Этот бот помогает лингвистам проводить сентимент-анализ "
@@ -67,14 +67,14 @@ def send_welcome(message):
                      "на несколько простых вопросов :) Начнем?", reply_markup=keyboard)
 
     
-# отправляем стикер
-@bot.message_handler(content_types=['text'])
-def send_sticker(message):
-    if message.chat.id == 'Да':
-        for sticker in sticker_ids:
-            bot.send_sticker(message.chat.id, sticker)
-    else:
-        bot.send_message(message.chat.id, "Хорошо. Тогда, до сокрого!")
+# функция запустится, когда пользователь нажмет на кнопку
+@bot.callback_query_handler(func=lambda call: True)
+def callback_inline(call):
+    if call.message:
+        if call.data == "button_yes":
+            bot.send_message(call.message.chat.id, "Вы нажали на первую кнопку.")
+        if call.data == "button_no":
+            bot.send_message(call.message.chat.id, "Хорошо. Тогда, до сокрого!")
 
 
 if __name__ == '__main__':
