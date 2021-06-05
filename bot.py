@@ -132,8 +132,9 @@ def if_continue(message):
     if answer == 'Да':
         bot.send_message(message.chat.id, 'Круто!')
         bot.register_next_step_handler(message, send_sticker)
-    elif answer == 'Нет':
+    else:
         bot.send_message(message.chat.id, 'Спасибо! До скорого ☺️')
+    
 
 
 if __name__ == '__main__':
