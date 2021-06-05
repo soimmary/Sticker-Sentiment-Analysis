@@ -123,6 +123,7 @@ def city(message):
     keyboard = types.ReplyKeyboardMarkup(True, True)
     keyboard.row('Да', 'Нет')
     bot.send_message(message.chat.id, 'Хотите продолжить?', reply_markup=keyboard)
+    bot.register_next_step_handler(message, if_continue)
 
 
 def if_continue(message):
