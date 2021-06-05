@@ -66,17 +66,17 @@ def send_sticker(message):
     bot.send_message(message.chat.id,
                      'Если бы ваш друг прислал вам сообщение вместо этого стикера, '
                      'каким бы оно могло быть?')
+    bot.register_next_step_handler(message, q1)
 
 
-@bot.message_handler(content_types=['text'])
 def q1(message):
     q1 = message.text
     user_data['q1'] = q1
     bot.send_message(message.chat.id,
                      'В ответ на какое сообщение вы бы могли отправить этот стикер?')
+    bot.register_next_step_handler(message, q2)
 
 
-@bot.message_handler(content_types=['text'])
 def q2(message):
     q2 = message.text
     user_data['q2'] = q2
