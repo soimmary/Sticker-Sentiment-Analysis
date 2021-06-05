@@ -1,5 +1,6 @@
 from telebot import types
 import telebot
+from collections import Counter
 import random
 import conf
 import csv
@@ -9,7 +10,7 @@ import csv
 ✅ на команды /start и /help пользователю присылается описание бота
 ✅ реализованы две клавиатуры в ответ на вопросы про характер и про интенсивность эмоции
 ✅ результаты опроса записываются в results.csv
-* на основании данных из results.csv пользователю присылается фидбек: 
+✅ на основании данных из results.csv пользователю присылается фидбек: 
   как его ответы соотносятся с ответами остальных 
 ✅ реализована возможность перейти к следующему стикеру/гифу или завершить опрос
 """
@@ -116,20 +117,20 @@ def city(message):
 def if_continue(message):
     # Сохраняем полученную информацию в csv
     with open('results.csv', 'a') as csvf1:
-        writer = csv.writer(csvf1, delimiter=' ')
+        writer = csv.writer(csvf1, delimiter=';')
         writer.writerow(user_data.values())
     # Показываем статистику
     respondents = set()
     cities = {}
     with open('results.csv', 'r') as csvf2:
         headers = csvf2.readline()
-        for answer in csv.reader(csvf2, delimiter=' '):
+        for answer in csv.reader(csvf2, delimiter=';'):
             if answer[8] not in cities and answer[1] not in respondents:
                 cities[answer[8].lower()] = 1
             else:
                 cities[answer[8].lower()] += 1
             respondents.add(answer[1])
-            
+
 
     bot.send_message(message.chat.id, f'Вы – {len(respondents)}-й респондент! Круто!')
     bot.send_message(message.chat.id, f'А еще вы {cities[user_data["city"]]}-й респондент из города {user_data["city"]}!')
