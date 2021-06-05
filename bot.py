@@ -59,11 +59,11 @@ def send_welcome(message):
 
 # отправляем стикер
 @bot.message_handler(commands=['sticker'])
-def send_sticker(message, user_data):
+def send_sticker(message):
     user_data = {}
     user_data['user_id'] = message.chat.id
     sticker = random.choice(sticker_ids)
-    bot.send_sticker(message.chat.id, sticker)
+    bot.send_sticker(message.chat.id, user_data, sticker)
     bot.send_message(message.chat.id,
                      '1. Если бы ваш друг прислал вам сообщение вместо этого стикера, '
                      'каким бы оно могло быть?')
