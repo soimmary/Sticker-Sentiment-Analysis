@@ -81,7 +81,7 @@ def send_sticker(message):
                      'каким бы оно могло быть?')
 
 
-@bot.message_handler(func=lambda m: True)
+@bot.message_handler(content_types=['text'])
 def q1(message):
     q1 = message.text
     user_data['q1'] = q1
@@ -89,7 +89,7 @@ def q1(message):
                      'В ответ на какое сообщение вы бы могли отправить этот стикер?')
 
 
-@bot.message_handler(func=lambda m: True)
+@bot.message_handler(content_types=['text'])
 def q2(message):
     q2 = message.text
     user_data['q2'] = q2
