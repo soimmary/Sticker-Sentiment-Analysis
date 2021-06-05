@@ -62,7 +62,7 @@ def send_welcome(message):
 
 # отправляем стикер
 @bot.message_handler(commands=['sticker'])
-def send_sticker(message):
+def send_sticker(message, user_data):
     user_data['user_id'] = message.chat.id
     sticker = random.choice(sticker_ids)
     bot.send_sticker(message.chat.id, sticker)
@@ -72,14 +72,14 @@ def send_sticker(message):
     bot.register_next_step_handler(message, q1)
 
 
-def q1(message):
+def q1(message, user_data):
     user_data['q1'] = message.text
     bot.send_message(message.chat.id,
                      '2. В ответ на какое сообщение вы бы могли отправить этот стикер?')
     bot.register_next_step_handler(message, q2)
 
 
-def q2(message):
+def q2(message, user_data):
     user_data['q2'] = message.text
     keyboard = types.ReplyKeyboardMarkup(True, True)
     keyboard.row('/😄', '/🥰', '/🤨', '/🥺', '/😡', '/😎', '/😢', 'другое')
@@ -89,7 +89,7 @@ def q2(message):
     bot.register_next_step_handler(message, q3)
 
 
-def q3(message):
+def q3(message, user_data):
     user_data['q3'] = message.text
     keyboard = types.ReplyKeyboardMarkup(True, True)
     keyboard.row('0', '1', '2', '3', '4', '5')
@@ -99,28 +99,28 @@ def q3(message):
     bot.register_next_step_handler(message, q4)
 
 
-def q4(message):
+def q4(message, user_data):
     user_data['q4'] = message.text
     bot.send_message(message.chat.id,
                      'Сколько вам лет?')
     bot.register_next_step_handler(message, age)
 
 
-def age(message):
+def age(message, user_data):
     user_data['age'] = message.text
     bot.send_message(message.chat.id,
                      'Какой ваш родной язык?')
     bot.register_next_step_handler(message, lang)
 
 
-def lang(message):
+def lang(message, user_data):
     user_data['lang'] = message.text
     bot.send_message(message.chat.id,
                      'В каком городе вы живете?')
     bot.register_next_step_handler(message, city)
 
 
-def city(message):
+def city(message, user_data):
     user_data['city'] = message.text
     keyboard = types.ReplyKeyboardMarkup(True, True)
     keyboard.row('Да', 'Нет')
@@ -128,7 +128,7 @@ def city(message):
     bot.register_next_step_handler(message, if_continue)
 
 
-def if_continue(message):
+def if_continue(message, user_data):
     answer = message.text.strip()
     if answer == 'Да':
         bot.send_message(message.chat.id, 'Круто!')
