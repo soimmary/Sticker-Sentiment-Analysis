@@ -145,7 +145,7 @@ def if_continue(message):
         for answer in csv.reader(csvf2, delimiter=' '):
             respondents.add(answer[1])
             if answer[8] not in cities:
-                cities[answer[8].lower()] == 1
+                cities[answer[8].lower()] = 1
             else:
                 cities[answer[8].lower()] += 1
 
