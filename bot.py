@@ -78,24 +78,30 @@ def q1(message):
 
 def q2(message):
     user_data['q2'] = message.text
+    keyboard = types.ReplyKeyboardMarkup(True, True)
+    keyboard.row('😄', '🥰', '🤨', '🥺', '😡', '😎', '😢', 'другое')
     bot.send_message(message.chat.id,
-                     '3. С какой эмоцией у вас ассоциируется этот стикер?')
+                     '3. С какой эмоцией у вас ассоциируется этот стикер?',
+                     reply_markup=keyboard)
     bot.register_next_step_handler(message, q3)
 
 
 def q3(message):
     user_data['q3'] = message.text
+    keyboard = types.ReplyKeyboardMarkup(True, True)
+    keyboard.row(0, 1, 2, 3, 4, 5)
     bot.send_message(message.chat.id,
-                     '4. Насколько интенсивна эта эмоция?')
+                     '4. Насколько интенсивна эта эмоция?',
+                     reply_markup=keyboard)
     bot.register_next_step_handler(message, q4)
-    
-    
+
+
 def q4(message):
     user_data['q4'] = message.text
     bot.send_message(message.chat.id,
                      'Сколько вам лет?')
     bot.register_next_step_handler(message, age)
-    
+
 
 def age(message):
     user_data['age'] = message.text
@@ -109,7 +115,7 @@ def lang(message):
     bot.send_message(message.chat.id,
                      'В каком городе вы живете?')
     bot.register_next_step_handler(message, city)
-    
+
 
 def city(message):
     user_data['city'] = message.text
