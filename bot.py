@@ -117,18 +117,15 @@ def city(message):
 def if_continue(message):
     # Сохраняем полученную информацию в csv
     with open('results.csv', 'a') as csvf1:
-        writer = csv.writer(csvf1, delimiter=';')
+        writer = csv.writer(csvf1, delimiter='\t')
         writer.writerow(user_data.values())
     # Показываем статистику
     respondents = set()
-    cities = {}
+    cities = Counter()
     with open('results.csv', 'r') as csvf2:
         headers = csvf2.readline()
-        for answer in csv.reader(csvf2, delimiter=';'):
-            if answer[8] not in cities and answer[1] not in respondents:
-                cities[answer[8].lower()] = 1
-            else:
-                cities[answer[8].lower()] += 1
+        for answer in csv.reader(csvf2, delimiter='\t'):
+            cities[answer[8].lower()] += 1
             respondents.add(answer[1])
 
 
