@@ -73,7 +73,7 @@ def send_welcome(message):
 def callback_inline(call):
     if call.message:
         if call.data == "button_yes":
-            bot.register_next_step_handler(call.message.chat.id, send_sticker)
+            bot.register_next_step_handler(message.chat.id, send_sticker)
         if call.data == "button_no":
             bot.send_message(call.message.chat.id, "Хорошо. Тогда, до сокрого!")
 
