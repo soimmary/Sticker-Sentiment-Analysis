@@ -5,6 +5,11 @@ import numpy as np
 import conf
 
 """
+- send sticker
+- answer questions
+- wanna another one? y/n
+
+
 Бот посылает пользователю стикеры/гифы по одному (выберите 5-10 ваших любимых) 
 и просит ответить на вопросы 
     1. "Если бы ваш друг прислал бы вам сообщение вместо стикера/гифа, каким бы оно могло быть?", 
@@ -53,7 +58,7 @@ def send_welcome(message):
 @bot.message_handler(func=lambda m: True)
 def send_len(message):
     for sticker in sticker_ids:
-        bot.send_sticker(message.chat_id, sticker)
+        bot.send_sticker(message.chat.id, sticker)
 
 
 if __name__ == '__main__':
