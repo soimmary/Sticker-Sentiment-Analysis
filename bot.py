@@ -1,8 +1,6 @@
-import os
 import telebot
 from telebot import types
-import pandas as pd
-import numpy as np
+import random
 import conf
 
 """
@@ -75,7 +73,24 @@ def callback_inline(call):
 # отправляем стикер
 @bot.message_handler(func=lambda m: True)
 def send_sticker(message):
-    for sticker in sticker_ids:
+    user_data['user_id'] = message.chat.id
+    sticker = random.choice(sticker_ids)
+    bot.send_sticker(message.chat.id, sticker)
+    send_q1(message)
+
+
+def send_q1(message):
+    bot.send_message(message.chat.id,
+                     'Если бы ваш друг прислал вам сообщение вместо этого стикера, '
+                     'каким бы оно могло быть?')
+
+
+def answer_q1(message):
+    q1 = message.text
+    
+
+
+'''
         user_data['user_id'] = message.chat.id
         bot.send_sticker(message.chat.id, sticker)
         bot.send_message(message.chat.id,
@@ -99,7 +114,7 @@ def send_sticker(message):
         bot.send_message(message.chat.id,
                          'В каком городе вы живете?')
         user_data['city'] = message
-        bot.send_message(message.chat.id, user_data)
+        bot.send_message(message.chat.id, user_data)'''
 
 
 if __name__ == '__main__':
