@@ -52,22 +52,17 @@ user_data = {}
 
 @bot.message_handler(commands=['start', 'help'])
 def send_welcome(message):
-    # создаем клавиатуру
     keyboard = types.InlineKeyboardMarkup()
-
-    # добавляем на нее две кнопки
     button1 = types.InlineKeyboardButton(text="Да", callback_data="button_yes")
     button2 = types.InlineKeyboardButton(text="Нет", callback_data="button_no")
     keyboard.add(button1)
     keyboard.add(button2)
-
     bot.send_message(message.chat.id,
                      "Привет! Этот бот помогает лингвистам проводить сентимент-анализ "
                      "с использованием стикеров в Телеграме! Предлагаем вам ответить "
                      "на несколько простых вопросов :) Начнем?", reply_markup=keyboard)
 
 
-# функция запустится, когда пользователь нажмет на кнопку
 @bot.callback_query_handler(func=lambda call: True)
 def callback_inline(call):
     if call.message:
@@ -80,9 +75,11 @@ def callback_inline(call):
 # отправляем стикер
 @bot.message_handler(func=lambda m: True)
 def send_sticker(message):
-    for sticker in sticker_ids:
-        bot.send_sticker(message.chat.id, sticker)
+    user_data['user_id'] = message.chat.id
+    bot.send_sticker(message.chat.id, sticker)
 
 
-if __name__ == '__main__':
+
+
+for sticker in sticker_ids:
     bot.polling(none_stop=True)
