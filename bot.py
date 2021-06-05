@@ -134,8 +134,9 @@ def if_continue(message):
         bot.send_message(message.chat.id, 'Круто!')
         send_sticker(message)
     else:
-        bot.send_message(message.chat.id, 'Спасибо! До скорого ☺️')
         bot.send_message(message.chat.id, user_data.value())
+        bot.send_message(message.chat.id, 'Спасибо! До скорого ☺️')
+
 
 user_data
 
