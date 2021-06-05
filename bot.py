@@ -57,6 +57,7 @@ def send_welcome(message):
 # отправляем стикер
 @bot.message_handler(func=lambda m: True)
 def send_sticker(message):
+    global sticker_ids
     for sticker in sticker_ids:
         bot.send_sticker(message.chat.id, sticker)
 
