@@ -75,11 +75,32 @@ def callback_inline(call):
 # отправляем стикер
 @bot.message_handler(func=lambda m: True)
 def send_sticker(message):
-    user_data['user_id'] = message.chat.id
-    bot.send_sticker(message.chat.id, sticker)
+    for sticker in sticker_ids:
+        user_data['user_id'] = message.chat.id
+        bot.send_sticker(message.chat.id, sticker)
+        bot.send_message(message.chat.id,
+                         'Если бы ваш друг прислал бы вам сообщение вместо стикера, каким бы оно могло быть?')
+        user_data['q1'] = message
+        bot.send_message(message.chat.id,
+                         'В ответ на какое сообщение вы бы могли отправить этот стикер?')
+        user_data['q2'] = message
+        bot.send_message(message.chat.id,
+                         'С какой эмоцией у вас ассоциируется этот стикер?')
+        user_data['q3'] = message
+        bot.send_message(message.chat.id,
+                         'Насколько интенсивна эта эмоция?')
+        user_data['q4'] = message
+        bot.send_message(message.chat.id,
+                         'Сколько вам лет?')
+        user_data['age'] = message
+        bot.send_message(message.chat.id,
+                         'Какой ваш родной язык?')
+        user_data['lang'] = message
+        bot.send_message(message.chat.id,
+                         'В каком городе вы живете?')
+        user_data['city'] = message
+        bot.send_message(message.chat.id, user_data)
 
 
-
-
-for sticker in sticker_ids:
+if __name__ == '__main__':
     bot.polling(none_stop=True)
