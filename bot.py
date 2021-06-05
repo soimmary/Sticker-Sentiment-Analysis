@@ -11,8 +11,6 @@ import csv
 ✅ результаты опроса записываются в results.csv
 * на основании данных из results.csv пользователю присылается фидбек: 
   как его ответы соотносятся с ответами остальных 
-  (можно привести статистику по количеству опрошенных, по возрастному распределению, 
-  по представленным городам)
 ✅ реализована возможность перейти к следующему стикеру/гифу или завершить опрос
 """
 
@@ -126,11 +124,12 @@ def if_continue(message):
     with open('results.csv', 'r') as csvf2:
         headers = csvf2.readline()
         for answer in csv.reader(csvf2, delimiter=' '):
-            respondents.add(answer[1])
-            if answer[8] not in cities:
+            if answer[8] not in cities and answer[1] not in respondents:
                 cities[answer[8].lower()] = 1
             else:
                 cities[answer[8].lower()] += 1
+            respondents.add(answer[1])
+            
 
     bot.send_message(message.chat.id, f'Вы – {len(respondents)}-й респондент! Круто!')
     bot.send_message(message.chat.id, f'А еще вы {cities[user_data["city"]]}-й респондент из города {user_data["city"]}!')
