@@ -72,9 +72,15 @@ def send_welcome(message):
 def callback_inline(call):
     if call.message:
         if call.data == "button_yes":
+            bot.register_next_step_handler(call.message.chat.id, send_sticker)
             bot.send_message(call.message.chat.id, "Вы нажали на первую кнопку.")
-        if call.data == "button_no":
+        elif call.data == "button_no":
             bot.send_message(call.message.chat.id, "Хорошо. Тогда, до сокрого!")
+            
+            
+def send_sticker(message):
+    for sticker in sticker_ids:
+        bot.send_sticker(message.chat.id, sticker)
 
 
 if __name__ == '__main__':
