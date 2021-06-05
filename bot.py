@@ -50,11 +50,6 @@ user_data = {}
 
 @bot.message_handler(commands=['start', 'help'])
 def send_welcome(message):
-    keyboard = types.InlineKeyboardMarkup()
-    button1 = types.InlineKeyboardButton(text="Да", callback_data="button_yes")
-    button2 = types.InlineKeyboardButton(text="Нет", callback_data="button_no")
-    keyboard.add(button1)
-    keyboard.add(button2)
     bot.send_message(message.chat.id,
                      "Привет! Этот бот помогает лингвистам проводить сентимент-анализ "
                      "с использованием стикеров в Телеграме! Предлагаем вам ответить "
@@ -71,16 +66,17 @@ def send_sticker(message):
     bot.send_message(message.chat.id,
                      'Если бы ваш друг прислал вам сообщение вместо этого стикера, '
                      'каким бы оно могло быть?')
-    q1(message)
 
+
+@bot.message_handler(content_types=['text'])
 def q1(message):
     q1 = message.text
     user_data['q1'] = q1
     bot.send_message(message.chat.id,
                      'В ответ на какое сообщение вы бы могли отправить этот стикер?')
-    q2(message)
 
 
+@bot.message_handler(content_types=['text'])
 def q2(message):
     q2 = message.text
     user_data['q2'] = q2
