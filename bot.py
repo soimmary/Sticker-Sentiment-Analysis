@@ -121,16 +121,16 @@ def if_continue(message):
         writer.writerow(user_data.values())
     # Показываем статистику
     respondents = set()
-    cities = Counter()
+    cities = {}
     with open('results.csv', 'r') as csvf2:
         headers = csvf2.readline()
         for answer in csv.reader(csvf2, delimiter='\t'):
-            cities[answer[8].lower()] += 1
+            cities[answer[8].lower()] = set()
+            cities[answer[8].lower()].add(user_data['user_id'])
             respondents.add(answer[1])
 
-
     bot.send_message(message.chat.id, f'Вы – {len(respondents)}-й респондент! Круто!')
-    bot.send_message(message.chat.id, f'А еще вы {cities[user_data["city"]]}-й респондент из города {user_data["city"]}!')
+    bot.send_message(message.chat.id, f'А еще вы {len(cities[user_data["city"]])}-й респондент из города {user_data["city"]}!')
 
     # Хочет ли информант продолжить
     answer = message.text.strip()
