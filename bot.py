@@ -44,7 +44,7 @@ sticker_ids = [
     'CAACAgIAAxkBAAECYkdgu2QF_NrKsn6PUq7kQAqgbg5Q7gACLQUAAiMFDQABtwnyEwyU6_wfBA',
     'CAACAgUAAxkBAAECYktgu2Qa6PnKc5-JusUR3_ilo0eHNQACxQYAAszG4gK3wUYfyR3TSR8E',
     'CAACAgIAAxkBAAECYk9gu2RIvNxErcaHrXLrav9euuuA_QACpwADfyesDlW4WzNWUWRgHwQ'
-] 
+]
 
 # Создаем словарь
 user_data = {}
@@ -56,27 +56,26 @@ def send_welcome(message):
     keyboard = types.InlineKeyboardMarkup()
 
     # добавляем на нее две кнопки
-    button_yes = types.InlineKeyboardButton(text="Да", callback_data="button_yes")
-    button_no = types.InlineKeyboardButton(text="Нет", callback_data="button_no")
-    keyboard.add(button_yes)
-    keyboard.add(button_no)
+    button1 = types.InlineKeyboardButton(text="Да", callback_data="button_yes")
+    button2 = types.InlineKeyboardButton(text="Нет", callback_data="button_no")
+    keyboard.add(button1)
+    keyboard.add(button2)
 
     bot.send_message(message.chat.id,
                      "Привет! Этот бот помогает лингвистам проводить сентимент-анализ "
                      "с использованием стикеров в Телеграме! Предлагаем вам ответить "
                      "на несколько простых вопросов :) Начнем?", reply_markup=keyboard)
 
-    
+
 # функция запустится, когда пользователь нажмет на кнопку
 @bot.callback_query_handler(func=lambda call: True)
 def callback_inline(call):
     if call.message:
         if call.data == "button_yes":
-            bot.register_next_step_handler(call.message.chat.id, send_sticker)
-            bot.send_message(call.message.chat.id, "Вы нажали на первую кнопку.")
-        elif call.data == "button_no":
+            send_sticker(call.message.chat.id)
+        if call.data == "button_no":
             bot.send_message(call.message.chat.id, "Хорошо. Тогда, до сокрого!")
-            
+
             
 def send_sticker(message):
     for sticker in sticker_ids:
