@@ -76,8 +76,6 @@ def callback_inline(call):
         if call.data == "button_no":
             bot.send_message(call.message.chat.id, "Хорошо. Тогда, до сокрого!")
 
-bot.polling(none_stop=True)
-
 
 # отправляем стикер
 @bot.message_handler(func=lambda m: True)
