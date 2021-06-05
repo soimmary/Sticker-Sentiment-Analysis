@@ -56,76 +56,77 @@ def send_welcome(message):
                      "Если хочешь начать, вызови команду /sticker 🌟.\n\n"
                      "Если вдруг тебе не понравился стикер, просто напиши /sticker еще раз!")
 
-user_data = {}
+
 # отправляем стикер
 @bot.message_handler(commands=['sticker'])
 def send_sticker(message):
+    user_data = {}
     user_data['user_id'] = message.chat.id
     sticker = random.choice(sticker_ids)
     bot.send_sticker(message.chat.id, sticker)
     bot.send_message(message.chat.id,
                      '1. Если бы ваш друг прислал вам сообщение вместо этого стикера, '
                      'каким бы оно могло быть?')
-    bot.register_next_step_handler(message, q1)
+    bot.register_next_step_handler(message, q1, user_data=user_data)
 
 
-def q1(message):
+def q1(message, user_data):
     user_data['q1'] = message.text
     bot.send_message(message.chat.id,
                      '2. В ответ на какое сообщение вы бы могли отправить этот стикер?')
-    bot.register_next_step_handler(message, q2)
+    bot.register_next_step_handler(message, q2, user_data=user_data)
 
 
-def q2(message):
+def q2(message, user_data):
     user_data['q2'] = message.text
     keyboard = types.ReplyKeyboardMarkup(True, True)
     keyboard.row('/😄', '/🥰', '/🤨', '/🥺', '/😡', '/😎', '/😢', 'другое')
     bot.send_message(message.chat.id,
                      '3. С какой эмоцией у вас ассоциируется этот стикер?',
                      reply_markup=keyboard)
-    bot.register_next_step_handler(message, q3)
+    bot.register_next_step_handler(message, q3, user_data=user_data)
 
 
-def q3(message):
+def q3(message, user_data):
     user_data['q3'] = message.text
     keyboard = types.ReplyKeyboardMarkup(True, True)
     keyboard.row('0', '1', '2', '3', '4', '5')
     bot.send_message(message.chat.id,
                      '4. Насколько интенсивна эта эмоция?',
                      reply_markup=keyboard)
-    bot.register_next_step_handler(message, q4)
+    bot.register_next_step_handler(message, q4, user_data=user_data)
 
 
-def q4(message):
+def q4(message, user_data):
     user_data['q4'] = message.text
     bot.send_message(message.chat.id,
                      'Сколько вам лет?')
-    bot.register_next_step_handler(message, age)
+    bot.register_next_step_handler(message, age, user_data=user_data)
 
 
-def age(message):
+def age(message, user_data):
     user_data['age'] = message.text
     bot.send_message(message.chat.id,
                      'Какой ваш родной язык?')
-    bot.register_next_step_handler(message, lang)
+    bot.register_next_step_handler(message, lang, user_data=user_data)
 
 
-def lang(message):
+def lang(message, user_data):
     user_data['lang'] = message.text
     bot.send_message(message.chat.id,
                      'В каком городе вы живете?')
-    bot.register_next_step_handler(message, city)
+    bot.register_next_step_handler(message, city, user_data=user_data)
 
 
-def city(message):
+def city(message, user_data):
     user_data['city'] = message.text
     keyboard = types.ReplyKeyboardMarkup(True, True)
     keyboard.row('Да', 'Нет')
     bot.send_message(message.chat.id, 'Хотите продолжить?', reply_markup=keyboard)
-    bot.register_next_step_handler(message, if_continue)
+    bot.register_next_step_handler(message, if_continue, user_data=user_data)
 
 
-def if_continue(message):
+def if_continue(message, user_data):
     answer = message.text.strip()
     if answer == 'Да':
         bot.send_message(message.chat.id, 'Круто!')
