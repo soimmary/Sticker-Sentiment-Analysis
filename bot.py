@@ -85,6 +85,7 @@ def send_q1(message):
                      'каким бы оно могло быть?')
 
 
+@bot.message_handler(func=lambda m: True)
 def answer_q1(message):
     q1 = message.text
     bot.send_message(message.chat.id, q1)
