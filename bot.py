@@ -53,7 +53,7 @@ def send_welcome(message):
     bot.send_message(message.chat.id,
                      "Привет! Этот бот помогает лингвистам проводить сентимент-анализ "
                      "с использованием стикеров в Телеграме! Предлагаем вам ответить "
-                     "на несколько простых вопросов :)\n"
+                     "на несколько простых вопросов :)\n\n"
                      "Если хочешь начать, вызови команду /sticker 🌟")
 
 
@@ -64,53 +64,58 @@ def send_sticker(message):
     sticker = random.choice(sticker_ids)
     bot.send_sticker(message.chat.id, sticker)
     bot.send_message(message.chat.id,
-                     'Если бы ваш друг прислал вам сообщение вместо этого стикера, '
+                     '1. Если бы ваш друг прислал вам сообщение вместо этого стикера, '
                      'каким бы оно могло быть?')
     bot.register_next_step_handler(message, q1)
 
 
 def q1(message):
-    q1 = message.text
-    user_data['q1'] = q1
+    user_data['q1'] = message.text
     bot.send_message(message.chat.id,
-                     'В ответ на какое сообщение вы бы могли отправить этот стикер?')
+                     '2. В ответ на какое сообщение вы бы могли отправить этот стикер?')
     bot.register_next_step_handler(message, q2)
 
 
 def q2(message):
-    q2 = message.text
-    user_data['q2'] = q2
+    user_data['q2'] = message.text
     bot.send_message(message.chat.id,
-                     'С какой эмоцией у вас ассоциируется этот стикер?')
+                     '3. С какой эмоцией у вас ассоциируется этот стикер?')
+    bot.register_next_step_handler(message, q3)
 
 
+def q3(message):
+    user_data['q3'] = message.text
+    bot.send_message(message.chat.id,
+                     '4. Насколько интенсивна эта эмоция?')
+    bot.register_next_step_handler(message, q4)
+    
+    
+def q4(message):
+    user_data['q4'] = message.text
+    bot.send_message(message.chat.id,
+                     'Сколько вам лет?')
+    bot.register_next_step_handler(message, age)
+    
+
+def age(message):
+    user_data['age'] = message.text
+    bot.send_message(message.chat.id,
+                     'Какой ваш родной язык?')
+    bot.register_next_step_handler(message, lang)
 
 
-'''
-        user_data['user_id'] = message.chat.id
-        bot.send_sticker(message.chat.id, sticker)
-        bot.send_message(message.chat.id,
-                         'Если бы ваш друг прислал бы вам сообщение вместо стикера, каким бы оно могло быть?')
-        user_data['q1'] = message
-        bot.send_message(message.chat.id,
-                         'В ответ на какое сообщение вы бы могли отправить этот стикер?')
-        user_data['q2'] = message
-        bot.send_message(message.chat.id,
-                         'С какой эмоцией у вас ассоциируется этот стикер?')
-        user_data['q3'] = message
-        bot.send_message(message.chat.id,
-                         'Насколько интенсивна эта эмоция?')
-        user_data['q4'] = message
-        bot.send_message(message.chat.id,
-                         'Сколько вам лет?')
-        user_data['age'] = message
-        bot.send_message(message.chat.id,
-                         'Какой ваш родной язык?')
-        user_data['lang'] = message
-        bot.send_message(message.chat.id,
-                         'В каком городе вы живете?')
-        user_data['city'] = message
-        bot.send_message(message.chat.id, user_data)'''
+def lang(message):
+    user_data['lang'] = message.text
+    bot.send_message(message.chat.id,
+                     'В каком городе вы живете?')
+    bot.register_next_step_handler(message, city)
+    
+
+def city(message):
+    user_data['city'] = message.text
+    bot.send_message(message.chat.id,
+                     'Хотите продолжить?')
+    bot.register_next_step_handler(message, send_sticker)
 
 
 if __name__ == '__main__':
