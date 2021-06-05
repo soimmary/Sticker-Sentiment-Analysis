@@ -1,7 +1,6 @@
 from telebot import types
 import telebot
 import random
-
 import conf
 
 
@@ -133,7 +132,7 @@ def if_continue(message, user_data):
     answer = message.text.strip()
     if answer == 'Да':
         bot.send_message(message.chat.id, 'Круто!')
-        send_sticker(message)
+        send_sticker(message, user_data)
     else:
         bot.send_message(message.chat.id, user_data.value())
         bot.send_message(message.chat.id, 'Спасибо! До скорого ☺️')
