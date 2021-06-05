@@ -74,7 +74,7 @@ def send_sticker(message):
         for sticker in sticker_ids:
             bot.send_sticker(message.chat.id, sticker)
     else:
-        bot.send_message(call.message.chat.id, "Хорошо. Тогда, до сокрого!")
+        bot.send_message(message.chat.id, "Хорошо. Тогда, до сокрого!")
 
 
 if __name__ == '__main__':
