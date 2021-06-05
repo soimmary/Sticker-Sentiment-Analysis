@@ -72,11 +72,13 @@ def send_welcome(message):
 def callback_inline(call):
     if call.message:
         if call.data == "button_yes":
-            send_sticker(call.message.chat.id)
+            send_sticker(call.message)
         if call.data == "button_no":
             bot.send_message(call.message.chat.id, "Хорошо. Тогда, до сокрого!")
 
-            
+
+# отправляем стикер
+@bot.message_handler(func=lambda m: True)
 def send_sticker(message):
     for sticker in sticker_ids:
         bot.send_sticker(message.chat.id, sticker)
