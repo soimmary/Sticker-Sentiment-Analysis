@@ -130,6 +130,7 @@ def city(message):
 def if_continue(message):
     answer = message.text.strip()
     if answer == 'Да':
+        bot.send_message(message.chat.id, 'Круто!')
         bot.register_next_step_handler(message, send_sticker)
     elif answer == 'Нет':
         bot.send_message(message.chat.id, 'Спасибо! До скорого ☺️')
