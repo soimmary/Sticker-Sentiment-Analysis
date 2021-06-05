@@ -125,14 +125,9 @@ def city(message):
     bot.send_message(message.chat.id, 'Хотите продолжить?', reply_markup=keyboard)
     bot.register_next_step_handler(message, if_continue)
 
-'''bot.send_message(message.chat.id,
-                     '4. Насколько интенсивна эта эмоция?',
-                     reply_markup=keyboard)
-    bot.register_next_step_handler(message, q4)'''
-
 
 def if_continue(message):
-    answer = message.text
+    answer = message.text.strip()
     if answer == 'Да':
         bot.register_next_step_handler(message, send_sticker)
     elif answer == 'Нет':
