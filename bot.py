@@ -58,20 +58,12 @@ def send_welcome(message):
     bot.send_message(message.chat.id,
                      "Привет! Этот бот помогает лингвистам проводить сентимент-анализ "
                      "с использованием стикеров в Телеграме! Предлагаем вам ответить "
-                     "на несколько простых вопросов :) Начнем?", reply_markup=keyboard)
-
-
-@bot.callback_query_handler(func=lambda call: True)
-def callback_inline(call):
-    if call.message:
-        if call.data == "button_yes":
-            send_sticker(call.message)
-        if call.data == "button_no":
-            bot.send_message(call.message.chat.id, "Хорошо. Тогда, до сокрого!")
+                     "на несколько простых вопросов :)\n"
+                     "Если хочешь начать, вызови команду /sticker 🌟", reply_markup=keyboard)
 
 
 # отправляем стикер
-@bot.message_handler(func=lambda m: True)
+@bot.message_handler(commands=['sticker'])
 def send_sticker(message):
     user_data['user_id'] = message.chat.id
     sticker = random.choice(sticker_ids)
@@ -79,17 +71,16 @@ def send_sticker(message):
     bot.send_message(message.chat.id,
                      'Если бы ваш друг прислал вам сообщение вместо этого стикера, '
                      'каким бы оно могло быть?')
+    q1(message)
 
-
-@bot.message_handler(content_types=['text'])
 def q1(message):
     q1 = message.text
     user_data['q1'] = q1
     bot.send_message(message.chat.id,
                      'В ответ на какое сообщение вы бы могли отправить этот стикер?')
+    q2(message)
 
 
-@bot.message_handler(content_types=['text'])
 def q2(message):
     q2 = message.text
     user_data['q2'] = q2
