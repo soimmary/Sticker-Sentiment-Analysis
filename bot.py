@@ -142,7 +142,7 @@ def if_continue(message):
     cities = {}
     with open('results.csv', 'r') as csvf2:
         headers = csvf2.readline()
-        for answer in csv.reader(csvf2):
+        for answer in csv.reader(csvf2, delimiter=' '):
             respondents.add(answer[1])
             if answer[8] not in cities:
                 cities[answer[8].lower()] == 1
@@ -151,7 +151,8 @@ def if_continue(message):
 
     bot.send_message(message.chat.id, f'Вы – {len(respondents)}-й респондент! Круто!')
     bot.send_message(message.chat.id, f'А еще вы {cities[user_data["city"]]}-й респондент из города {user_data["city"]}!')
-    # Спрашиваем, хочет ли информант продолжить
+
+    # Хочет ли информант продолжить
     answer = message.text.strip()
     if answer == 'Да':
         bot.send_message(message.chat.id, 'Продолжим!')
