@@ -89,7 +89,7 @@ def q2(message):
 def q3(message):
     user_data['q3'] = message.text
     keyboard = types.ReplyKeyboardMarkup(True, True)
-    keyboard.row(0, 1, 2, 3, 4, 5)
+    keyboard.row('0', '1', '2', '3', '4', '5')
     bot.send_message(message.chat.id,
                      '4. Насколько интенсивна эта эмоция?',
                      reply_markup=keyboard)
@@ -122,6 +122,7 @@ def city(message):
     bot.send_message(message.chat.id,
                      'Хотите продолжить?')
     bot.register_next_step_handler(message, send_sticker)
+
 
 
 if __name__ == '__main__':
